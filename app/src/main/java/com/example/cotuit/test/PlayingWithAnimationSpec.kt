@@ -35,30 +35,99 @@ class PlayingWithAnimationSpec {
 
         @Composable
         fun DoPlayingWithAnimationSpec(navController: NavHostController) {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xCBB2D886))) {
+
+            var springBoxWidth by remember { mutableStateOf(0f) }
+            var keyframeBoxWidth by remember { mutableStateOf(0f) }
+            var snapBoxWidth by remember { mutableStateOf(0f) }
+            var springBoxColor by remember { mutableStateOf(0xFF009688) } // alt 0xFFFF5722
+            var keyframeColor by remember { mutableStateOf(0xFF009688) }
+            var snapColor by remember { mutableStateOf(0xFF009688) }
+
+            //Inner function
+            fun viewController(view: String) {
+                springBoxWidth = 0f
+                keyframeBoxWidth = 0f
+                snapBoxWidth = 0f
+                springBoxColor = 0xFF009688
+                keyframeColor = 0xFF009688
+                snapColor = 0xFF009688
+                when (view) {
+
+                    "spring" -> {
+                        springBoxWidth = 1f
+                        springBoxColor = 0xFFFF5722
+                    }
+                    "keyframe" -> {
+                        keyframeBoxWidth = 1f
+                        keyframeColor = 0xFFFF5722
+                    }
+                    "snap" -> {
+                        snapBoxWidth = 1f
+                        snapColor = 0xFFFF5722
+                    }
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(0xCBB2D886))
+            ) {
 
                 Column {
 
                     // allow navigation back to Main Menu
                     NavIcon.MenuIcon(navController = navController)
 
-                    Text(
-                        "Spring, Keyframes, and Snap",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 32.sp,
-                        color = Color(0xFF009688)
-                    )
+                    Row {
+                        Text(
+                            "Spring, ",
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 32.sp,
+                            color = Color(springBoxColor),
+                            modifier = Modifier.clickable {
+                                viewController("spring")
+                            }
+                        )
+                        Text(
+                            "Keyframes, ",
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 32.sp,
+                            color = Color(keyframeColor),
+                            modifier = Modifier.clickable {
+                                viewController("keyframe")
+                            }
+                        )
+                        Text(
+                            "and Snap",
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 32.sp,
+                            color = Color(snapColor),
+                            modifier = Modifier.clickable {
+                                viewController("snap")
+                            }
+                        )
+                    }
 
-                    Bouncy()
+                    Box(Modifier.fillMaxWidth()) {
+                        Box(modifier = Modifier.fillMaxWidth(springBoxWidth)) {
+                            Spring()
+                        }
 
+                        Box(modifier = Modifier.fillMaxWidth(keyframeBoxWidth)) {
+                            KeyFrame()
+                        }
+
+                        Box(modifier = Modifier.fillMaxWidth(snapBoxWidth)) {
+                            Snap()
+                        }
+                    }
                 }
             }
         }
 
         @Composable
-        fun Bouncy() {
+        fun Spring() {
 
             var boxState0 by remember { mutableStateOf(TestBoxPosition.INIT) }
             var boxState1 by remember { mutableStateOf(TestBoxPosition.INIT) }
@@ -192,6 +261,17 @@ class PlayingWithAnimationSpec {
         }
     }
 }
+
+@Composable
+fun KeyFrame() {
+    Text("keyframe TODO")
+}
+
+@Composable
+fun Snap() {
+    Text("snap TODO")
+}
+
 
 enum class TestBoxPosition {
     INIT, START
