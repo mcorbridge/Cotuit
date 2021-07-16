@@ -106,7 +106,7 @@ enum class CardDescription(val title:String, val description: String) {
 
     CARD_SIX(
         "Example Six - Testing the Animation API",
-        "Playing with Animations Specs:\n" + "Spring\n" + "Keyframes\n" + "Snap"),
+        "Playing with Animations Specs:\n" + "Spring\n" + "Tween\n" + "Keyframes\n" + "Snap"),
 
     CARD_SEVEN(
         "Example Seven - Weather",
