@@ -3,10 +3,12 @@ package com.example.cotuit.test
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,8 +55,8 @@ class PlayingWithAnimationSpec {
                 tweenColor = 0xFF009688
                 keyframeColor = 0xFF009688
                 snapColor = 0xFF009688
-                when (view) {
 
+                when (view) {
                     "spring" -> {
                         springBoxWidth = 1f
                         springColor = 0xFFFF5722
@@ -594,7 +596,194 @@ fun KeyFrame() {
 
 @Composable
 fun Snap() {
-    Text("snap TODO")
+
+    var r0 by remember { mutableStateOf(0f)}
+    var r1 by remember { mutableStateOf(0f)}
+    var r2 by remember { mutableStateOf(0f)}
+    var r3 by remember { mutableStateOf(0f)}
+    var r4 by remember { mutableStateOf(0f)}
+    var r5 by remember { mutableStateOf(0f)}
+    var r6 by remember { mutableStateOf(0f)}
+    var r7 by remember { mutableStateOf(0f)}
+    var r8 by remember { mutableStateOf(0f)}
+    var r9 by remember { mutableStateOf(0f)}
+    var r10 by remember { mutableStateOf(0f)}
+    var r11 by remember { mutableStateOf(0f)}
+
+    var arrowPosition by remember { mutableStateOf(ArrowPosition.INIT) }
+
+    val offsetAnimation0: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(),
+        finishedListener = { r0 += 180f}
+    )
+
+    val offsetAnimation1: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(250),
+        finishedListener = { r1 += 180f}
+    )
+
+    val offsetAnimation2: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(500),
+        finishedListener = { r2 += 180f}
+    )
+
+    val offsetAnimation3: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(750),
+        finishedListener = { r3 += 180f}
+    )
+
+    val offsetAnimation4: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(1000),
+        finishedListener = { r4 += 180f}
+    )
+
+    val offsetAnimation5: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(1250),
+        finishedListener = { r5 += 180f}
+    )
+
+    val offsetAnimation6: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(1500),
+        finishedListener = { r6 += 180f}
+    )
+
+    val offsetAnimation7: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(1750),
+        finishedListener = { r7 += 180f}
+    )
+
+    val offsetAnimation8: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(2000),
+        finishedListener = { r8 += 180f}
+    )
+
+    val offsetAnimation9: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(2250),
+        finishedListener = { r9 += 180f}
+    )
+
+    val offsetAnimation10: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(2500),
+        finishedListener = { r10 += 180f}
+    )
+
+    val offsetAnimation11: Dp by animateDpAsState(
+        if (arrowPosition == ArrowPosition.INIT) 0.dp else 350.dp,
+        snap(2750),
+        finishedListener = { r11 += 180f}
+    )
+
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy((1).dp)
+    ) {
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation0)
+            .background(color = Color.Transparent)
+            .rotate(r0))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation1)
+            .background(color = Color.Transparent)
+            .rotate(r1))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation2)
+            .background(color = Color.Transparent)
+            .rotate(r2))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation3)
+            .background(color = Color.Transparent)
+            .rotate(r3))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation4)
+            .background(color = Color.Transparent)
+            .rotate(r4))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation5)
+            .background(color = Color.Transparent)
+            .rotate(r5))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation6)
+            .background(color = Color.Transparent)
+            .rotate(r6))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation7)
+            .background(color = Color.Transparent)
+            .rotate(r7))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation8)
+            .background(color = Color.Transparent)
+            .rotate(r8))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation9)
+            .background(color = Color.Transparent)
+            .rotate(r9))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation10)
+            .background(color = Color.Transparent)
+            .rotate(r10))
+
+        Image(painter = painterResource(R.drawable.circle_arrow), contentDescription = null,modifier = Modifier
+            .height(50.dp)
+            .width(50.dp)
+            .offset(x = offsetAnimation11)
+            .background(color = Color.Transparent)
+            .rotate(r11))
+
+        Button(onClick = {
+            arrowPosition = when(arrowPosition){
+                ArrowPosition.INIT -> ArrowPosition.START
+                ArrowPosition.START -> ArrowPosition.INIT
+            }
+        },modifier = Modifier.rotate(0f)) {
+            Text("snap")
+        }
+    }
 }
 
 
