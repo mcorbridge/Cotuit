@@ -40,9 +40,9 @@ class AppMenu(private val navController: NavHostController) {
 
             DisplayCard(CardDescription.CARD_SIX.title, CardDescription.CARD_SIX.description,  Routes.PLAYING_WITH.route)
 
-            DisplayCard(CardDescription.CARD_SEVEN.title, CardDescription.CARD_SEVEN.description,  Routes.MENU.route)
+            DisplayCard(CardDescription.CARD_SEVEN.title, CardDescription.CARD_SEVEN.description,  Routes.TRANSITIONS.route)
 
-            DisplayCard(CardDescription.CARD_EIGHT.title, CardDescription.CARD_EIGHT.description,  Routes.MENU.route)
+            DisplayCard(CardDescription.CARD_EIGHT.title, CardDescription.CARD_EIGHT.description,  Routes.BOX_WITH_CONSTRAINTS.route)
 
             DisplayCard(CardDescription.CARD_NINE.title, CardDescription.CARD_NINE.description,  Routes.MENU.route)
 
@@ -109,12 +109,15 @@ enum class CardDescription(val title:String, val description: String) {
         "Playing with Animations Specs:\n" + "Spring\n" + "Tween\n" + "Keyframes\n" + "Snap"),
 
     CARD_SEVEN(
-        "Example Seven - Weather",
+        "Example Seven - Transitions",
         "TODO"),
 
     CARD_EIGHT(
-        "Example Eight",
-        "TODO"),
+        "Example Eight - Box With Constraints",
+        "In order to know the constraints coming from the parent and design the layout accordingly, " +
+                "you can use a BoxWithConstraints. The measurement constraints " +
+                "can be found in the scope of the content lambda. You can use these measurement " +
+                "constraints to compose different layouts for different screen configurations:"),
 
     CARD_NINE(
         "Example Nine",

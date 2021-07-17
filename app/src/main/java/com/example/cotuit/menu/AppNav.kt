@@ -26,6 +26,8 @@ class AppNav {
                 composable(Routes.TEST_MENU.route) { NavRoutes.TestMenuView(navController)}
                 composable(Routes.START_STOP.route) { NavRoutes.StartStop(navController)}
                 composable(Routes.PLAYING_WITH.route) { NavRoutes.PlayingWith(navController)}
+                composable(Routes.TRANSITIONS.route) { NavRoutes.Transitions(navController)}
+                composable(Routes.BOX_WITH_CONSTRAINTS.route) { NavRoutes.ConstrainedBox(navController)}
             }
         }
     }

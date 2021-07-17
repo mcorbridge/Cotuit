@@ -61,6 +61,16 @@ class NavRoutes {
             PlayingWithAnimationSpec.DoPlayingWithAnimationSpec(navController = navController)
         }
 
+        @Composable
+        fun Transitions(navController: NavHostController) {
+            TestTransitions.DoTestTransitions(navController = navController)
+        }
+
+        @Composable
+        fun ConstrainedBox(navController: NavHostController) {
+            TestTransitions.TestBoxWithConstraints(navController = navController)
+        }
+
     }
 
 
