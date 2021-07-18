@@ -44,7 +44,7 @@ class AppMenu(private val navController: NavHostController) {
 
             DisplayCard(CardDescription.CARD_EIGHT.title, CardDescription.CARD_EIGHT.description,  Routes.BOX_WITH_CONSTRAINTS.route)
 
-            DisplayCard(CardDescription.CARD_NINE.title, CardDescription.CARD_NINE.description,  Routes.MENU.route)
+            DisplayCard(CardDescription.CARD_NINE.title, CardDescription.CARD_NINE.description,  Routes.SLIDE_SHOW.route)
 
             DisplayCard(CardDescription.CARD_TEN.title, CardDescription.CARD_TEN.description,  Routes.MENU.route)
 
@@ -120,8 +120,9 @@ enum class CardDescription(val title:String, val description: String) {
                 "constraints to compose different layouts for different screen configurations:"),
 
     CARD_NINE(
-        "Example Nine",
-        "TODO"),
+        "Example Nine - Slide Show",
+        "A 'roll your own' slide show component that works great, and will have to do until the " +
+                "geniuses at Google or Accompanist (same thing?) come up with one."),
 
     CARD_TEN(
         "Example Ten",

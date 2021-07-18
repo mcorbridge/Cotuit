@@ -71,6 +71,11 @@ class NavRoutes {
             TestTransitions.TestBoxWithConstraints(navController = navController)
         }
 
+        @Composable
+        fun SlideShow(navController: NavHostController) {
+            SlideShow.DoSlideShow(navController = navController)
+        }
+
     }
 
 

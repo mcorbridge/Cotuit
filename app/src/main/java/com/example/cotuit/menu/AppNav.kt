@@ -28,6 +28,7 @@ class AppNav {
                 composable(Routes.PLAYING_WITH.route) { NavRoutes.PlayingWith(navController)}
                 composable(Routes.TRANSITIONS.route) { NavRoutes.Transitions(navController)}
                 composable(Routes.BOX_WITH_CONSTRAINTS.route) { NavRoutes.ConstrainedBox(navController)}
+                composable(Routes.SLIDE_SHOW.route) { NavRoutes.SlideShow(navController)}
             }
         }
     }

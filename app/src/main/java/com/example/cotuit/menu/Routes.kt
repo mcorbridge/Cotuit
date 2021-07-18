@@ -27,6 +27,7 @@ enum class Routes(val route:String, val access:String) {
     START_STOP("startStop", "admin"),
     PLAYING_WITH("playingWith", "admin"),
     TRANSITIONS("transitions", "admin"),
-    BOX_WITH_CONSTRAINTS("boxWithConstraints", "admin")
+    BOX_WITH_CONSTRAINTS("boxWithConstraints", "admin"),
+    SLIDE_SHOW("slideShow", "admin")
 
 }
