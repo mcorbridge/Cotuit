@@ -9,12 +9,13 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.cotuit.test.MyDataClass
+import com.example.cotuit.test.SlideDirection
 import com.example.cotuit.test.SlideState
 
 class Slide1 {
@@ -22,14 +23,18 @@ class Slide1 {
     companion object{
 
         @Composable
-        fun Slide(slideState: SlideState, slideTarget: Dp, currentSlide: Int, direction: String){
+        fun Slide(slideState: SlideState, direction: SlideDirection, dataClass: MyDataClass?= null){
 
-            if(currentSlide == 1){
+            var slideTarget by remember { mutableStateOf((-400).dp) }
+
+            if(slideState == SlideState.SLIDE_1){
                 println("currentSlide is Slide ONE")
-                if(direction == "NEXT"){
+                if(direction == SlideDirection.SLIDE_NEXT){
                     println("slide direction --->")
+                    slideTarget = (-400).dp
                 }else{
                     println("<--- slide direction")
+                    slideTarget = 400.dp
                 }
             }
 
