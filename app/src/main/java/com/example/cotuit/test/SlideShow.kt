@@ -12,8 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.cotuit.menu.NavIcon
-import com.example.cotuit.slides.Slide0
-import com.example.cotuit.slides.Slide6
+import com.example.cotuit.slides.*
 
 class SlideShow {
 
@@ -23,11 +22,12 @@ class SlideShow {
         fun DoSlideShow(navController: NavHostController) {
 
 
-            var xPos by remember { mutableStateOf(10.dp) }
-            val yPos by remember { mutableStateOf(10.dp) }
             var menuClick by remember { mutableStateOf(0) }
+            var currentSlide by remember { mutableStateOf(0) }
+            var direction by remember { mutableStateOf("NEXT")}
+
             var slideState by remember { mutableStateOf(SlideState.SLIDE_0) }
-            var slide0Target by remember { mutableStateOf((400).dp) }
+            val slide0Target by remember { mutableStateOf((400).dp) }
             var slide1Target by remember { mutableStateOf((-400).dp) }
             var slide2Target by remember { mutableStateOf((-400).dp) }
             var slide3Target by remember { mutableStateOf((-400).dp) }
@@ -35,41 +35,9 @@ class SlideShow {
             var slide5Target by remember { mutableStateOf((-400).dp) }
             var slide6Target by remember { mutableStateOf((-400).dp) }
 
-            val slide0Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_0) 0.dp else slide0Target,
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide0Animation finished") })
+            var dataClass by remember { mutableStateOf(MyDataClass("f","b"))}
 
-            val slide1Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_1) 0.dp else slide1Target,
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide1Animation finished") })
-
-            val slide2Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_2) 0.dp else slide2Target,
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide2Animation finished") })
-
-            val slide3Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_3) 0.dp else slide3Target, // TODO
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide3Animation finished") })
-
-            val slide4Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_4) 0.dp else slide4Target, // TODO
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide4Animation finished") })
-
-            val slide5Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_5) 0.dp else slide5Target, // TODO
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide5Animation finished") })
-
-            val slide6Animation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_6) 0.dp else slide6Target, // TODO
-                animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide6Animation finished") })
-
+            var title by remember { mutableStateOf("Slide #6") }
 
             BoxWithConstraints(modifier = Modifier
                 .fillMaxSize()
@@ -80,84 +48,54 @@ class SlideShow {
                     NavIcon.MenuIcon(navController = navController)
 
                     BoxWithConstraints() {
-
-                        Slide0.Slide(slideAnimation = slide0Animation)
-
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .offset(x = slide1Animation, y = yPos)
-                            .background(Color(0xFFBAC550))){
-                            Text("slide 1")
-                        }
-
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .offset(x = slide2Animation, y = yPos)
-                            .background(Color(0xFFE7DD82))){
-                            Text("slide 2")
-                        }
-
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .offset(x = slide3Animation, y = yPos)
-                            .background(Color(0xFFD53B30))){
-                            Text("slide 3")
-                        }
-
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .offset(x = slide4Animation, y = yPos)
-                            .background(Color(0xFF374175))){
-                            Text("slide 4", color = Color.White)
-                        }
-
-                        Box(modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
-                            .offset(x = slide5Animation, y = yPos)
-                            .background(Color(0xFFFF9800))){
-                            Text("slide 5")
-                        }
-
-                        Slide6.Slide(slideAnimation = slide6Animation)
+                        Slide0.Slide(slideState, slide0Target, currentSlide, direction)
+                        Slide1.Slide(slideState, slide1Target, currentSlide, direction)
+                        Slide2.Slide(slideState, slide2Target, currentSlide, direction)
+                        Slide3.Slide(slideState, slide3Target, currentSlide, direction)
+                        Slide4.Slide(slideState, slide4Target, currentSlide, direction)
+                        Slide5.Slide(slideState, slide5Target, currentSlide, direction)
+                        Slide6.Slide(slideState, slide6Target, currentSlide, direction, title, dataClass)
                     }
                 }
 
                 Row(modifier = Modifier.offset(x=100.dp)){
                     Text("< previous",  modifier = Modifier.clickable {
                         menuClick--
+                        direction = "PREVIOUS"
                         menuClick = if(menuClick < 0) 0 else menuClick // never allow clicks less than 0
-                        println("----------menuClick-----------> $menuClick ---> $slideState")
                         when(menuClick){
                             0 -> {
+                                currentSlide = 0
                                 slide1Target = (-400).dp
                                 slideState = SlideState.SLIDE_0
                             }
                             1 -> {
+                                currentSlide = 1
                                 slide2Target = (-400).dp
                                 slideState = SlideState.SLIDE_1
                             }
                             2 -> {
+                                currentSlide = 2
                                 slide3Target = (-400).dp
                                 slideState = SlideState.SLIDE_2
                             }
                             3 -> {
+                                currentSlide = 3
                                 slide4Target = (-400).dp
                                 slideState = SlideState.SLIDE_3
                             }
                             4 -> {
+                                currentSlide = 4
                                 slide5Target = (-400).dp
                                 slideState = SlideState.SLIDE_4
                             }
                             5 -> {
+                                currentSlide = 5
                                 slide6Target = (-400).dp
                                 slideState = SlideState.SLIDE_5
                             }
                             6 -> {
+                                currentSlide = 6
                                 slideState = SlideState.SLIDE_6
                             }
                         }
@@ -168,31 +106,38 @@ class SlideShow {
                     Text("next >", modifier = Modifier.clickable {
                         menuClick++
                         menuClick = if(menuClick > 6) 6 else menuClick // never allow clicks greater than total num slides-1
-                        println("----------menuClick-----------> $menuClick ---> $slideState")
+                        direction = "NEXT"
                         when(menuClick){
                             0 -> {
+                                currentSlide = 0
                                 slideState = SlideState.SLIDE_0
                             }
                             1 -> {
+                                currentSlide = 1
                                 slideState = SlideState.SLIDE_1
                             }
                             2 -> {
+                                currentSlide = 2
                                 slide1Target = 400.dp
                                 slideState = SlideState.SLIDE_2
                             }
                             3 -> {
+                                currentSlide = 3
                                 slide2Target = 400.dp
                                 slideState = SlideState.SLIDE_3
                             }
                             4 -> {
+                                currentSlide = 4
                                 slide3Target = 400.dp
                                 slideState = SlideState.SLIDE_4
                             }
                             5 -> {
+                                currentSlide = 5
                                 slide4Target = 400.dp
                                 slideState = SlideState.SLIDE_5
                             }
                             6 -> {
+                                currentSlide = 6
                                 slide5Target = 400.dp
                                 slideState = SlideState.SLIDE_6
                             }
@@ -207,3 +152,8 @@ class SlideShow {
 enum class SlideState {
     SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6,
 }
+
+data class MyDataClass(var name:String, var value:String)
+
+
+

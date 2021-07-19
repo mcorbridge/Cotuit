@@ -17,15 +17,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.cotuit.test.SlideState
 
-class Slide0 {
+class Slide4 {
 
     companion object{
 
         @Composable
         fun Slide(slideState: SlideState, slideTarget: Dp, currentSlide: Int, direction: String){
 
-            if(currentSlide == 0){
-                println("currentSlide is Slide ZERO")
+            if(currentSlide == 4){
+                println("currentSlide is Slide FOUR")
                 if(direction == "NEXT"){
                     println("slide direction --->")
                 }else{
@@ -34,20 +34,16 @@ class Slide0 {
             }
 
             val slideAnimation: Dp by animateDpAsState(
-                targetValue = if (slideState == SlideState.SLIDE_0) 0.dp else slideTarget,
+                targetValue = if (slideState == SlideState.SLIDE_4) 0.dp else slideTarget,
                 animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = 100f),
-                finishedListener = { println("slide0Animation finished") })
+                finishedListener = { println("slide4Animation finished") })
 
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .offset(x = slideAnimation, y = 0.dp)
                 .background(Color(0xFF03A9F4))){
-                Text("How to add a new slide\n\n (1) Create a new slide by copying this one\n" +
-                        "(2) Create a 'slideTarget' var based on the naming pattern in 'SlideShow'\n" +
-                        "(3) Create a unique 'animateDpAsState' using the same naming pattern in 'SlideShow'\n" +
-                        "(4) Update '<previous' & 'next>' to provide navigation to the slide\n" +
-                        "(5) Update 'enum class SlideState' with a new reference ")
+                Text("Slide #4")
             }
         }
     }
