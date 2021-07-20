@@ -86,7 +86,6 @@ enum class SlideState {
     SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6, SLIDE_7, SLIDE_8, SLIDE_9,
 }
 
-
 data class MyDataClass(var name:String, var value:String)
 
 

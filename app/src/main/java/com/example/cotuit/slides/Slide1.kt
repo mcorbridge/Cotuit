@@ -26,6 +26,8 @@ class Slide1 {
 
             var slideTarget by remember { mutableStateOf((-400).dp) }
 
+            // read this as NOT! where SLIDE_0 or SLIDE_2 goes, but where SLIDE_1 goes
+            // when '<previous' or 'next>' is pressed when SLIDE_1 is currently visible
             if(slideState == SlideState.SLIDE_0){
                 slideTarget = (-400).dp
             }

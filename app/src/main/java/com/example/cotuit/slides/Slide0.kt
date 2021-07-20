@@ -26,10 +26,13 @@ class Slide0 {
 
             var slideTarget by remember { mutableStateOf(0.dp) }
 
+            // Read this as NOT! where SLIDE_1 goes, but where SLIDE_0 goes when SLIDE_0 is currently
+            // visible.
+            // Only 'next>' (in this case SLIDE_1) can be pressed as '<previous' is not
+            // an option since SLIDE_0 is the first slide.
             if(slideState == SlideState.SLIDE_1){
                 slideTarget = (400).dp
             }
-
 
             val slideAnimation: Dp by animateDpAsState(
                 targetValue = if (slideState == SlideState.SLIDE_0) 0.dp else slideTarget,
