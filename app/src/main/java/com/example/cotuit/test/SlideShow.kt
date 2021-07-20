@@ -20,7 +20,6 @@ class SlideShow {
         fun DoSlideShow(navController: NavHostController) {
 
             var menuClick by remember { mutableStateOf(0) }
-            var direction by remember { mutableStateOf(SlideDirection.SLIDE_NEXT)}
             var slideState by remember { mutableStateOf(SlideState.SLIDE_0) }
             var dataClass by remember { mutableStateOf(MyDataClass("foo","bar"))}
 
@@ -48,16 +47,16 @@ class SlideShow {
                     NavIcon.MenuIcon(navController = navController)
 
                     BoxWithConstraints() {
-                        Slide0.Slide(slideState, direction)
-                        Slide1.Slide(slideState, direction)
-                        Slide2.Slide(slideState, direction)
-                        Slide3.Slide(slideState, direction)
-                        Slide4.Slide(slideState, direction)
-                        Slide5.Slide(slideState, direction)
-                        Slide6.Slide(slideState, direction, dataClass) // <-- passing info to slides
-                        Slide7.Slide(slideState, direction, dataClass)
-                        Slide8.Slide(slideState, direction, dataClass)
-                        Slide9.Slide(slideState, direction, dataClass)
+                        Slide0.Slide(slideState)
+                        Slide1.Slide(slideState)
+                        Slide2.Slide(slideState)
+                        Slide3.Slide(slideState)
+                        Slide4.Slide(slideState)
+                        Slide5.Slide(slideState)
+                        Slide6.Slide(slideState, dataClass) // <-- passing info to slides
+                        Slide7.Slide(slideState, dataClass)
+                        Slide8.Slide(slideState, dataClass)
+                        Slide9.Slide(slideState, dataClass)
                     }
                 }
 
@@ -65,7 +64,6 @@ class SlideShow {
                     Text("< previous",  modifier = Modifier.clickable {
                         menuClick--
                         menuClick = if(menuClick < 0) 0 else menuClick // never allow clicks less than 0
-                        direction = SlideDirection.SLIDE_PREVIOUS
                         handleMenuClick(menuClick)
                     })
 
@@ -74,7 +72,6 @@ class SlideShow {
                     Text("next >", modifier = Modifier.clickable {
                         menuClick++
                         menuClick = if(menuClick > 9) 9 else menuClick // never allow clicks greater than total num slides-1
-                        direction = SlideDirection.SLIDE_NEXT
                         handleMenuClick(menuClick)
                     })
                 }
@@ -89,9 +86,6 @@ enum class SlideState {
     SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6, SLIDE_7, SLIDE_8, SLIDE_9,
 }
 
-enum class SlideDirection{
-    SLIDE_NEXT, SLIDE_PREVIOUS
-}
 
 data class MyDataClass(var name:String, var value:String)
 

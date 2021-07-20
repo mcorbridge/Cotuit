@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.cotuit.test.MyDataClass
-import com.example.cotuit.test.SlideDirection
 import com.example.cotuit.test.SlideState
 
 class Slide9 {
@@ -22,22 +21,20 @@ class Slide9 {
         @Composable
         fun Slide(
             slideState: SlideState,
-            direction: SlideDirection,
             dataClass: MyDataClass ?= null
         ){
 
             var slideTarget by remember { mutableStateOf((-400).dp) }
 
-            if(slideState == SlideState.SLIDE_9){
-                println("currentSlide is Slide NINE")
-                if(direction == SlideDirection.SLIDE_NEXT){
-                    println("slide direction --->")
-                    slideTarget = (-400).dp
-                }else{
-                    println("<--- slide direction")
-                    slideTarget = 400.dp
-                }
+            if(slideState == SlideState.SLIDE_8){
+                slideTarget = (-400).dp
             }
+
+            // In preparation should a new slide be added to the slide deck
+            //if(slideState == SlideState.SLIDE_10){
+            //    slideTarget = 400.dp
+            //}
+
 
             val slideAnimation: Dp by animateDpAsState(
                 targetValue = if (slideState == SlideState.SLIDE_9) 0.dp else slideTarget,
