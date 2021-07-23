@@ -5,12 +5,10 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -31,11 +29,9 @@ class Slide7 {
             slideState: SlideState,
             dataClass: MyDataClass ?= null
         ){
-
             var slideTarget by remember { mutableStateOf((-400).dp) }
             val state = rememberScaffoldState()
             val coroutineScope = rememberCoroutineScope()
-
 
             if(slideState == SlideState.SLIDE_6){
                 slideTarget = (-400).dp
@@ -60,33 +56,54 @@ class Slide7 {
                     TopAppBar(
                         title = { Text(text = "Slide #7") },
                         navigationIcon = {
-
                             Icon(Icons.Default.Menu, contentDescription = "Localized description",
                                 modifier = Modifier.clickable(onClick = {
-                                   println("state.drawerState.isOpen? ${state.drawerState.isOpen}")
                                     coroutineScope.launch { state.drawerState.open() }
                                 }))
-                        }
+                        },
+                        elevation = 16.dp,
                     )
                 },
                 drawerShape = MaterialTheme.shapes.large,
                 drawerElevation = 16.dp,
                 drawerContent = {
                     Text(text = "Drawer")
+                    Icon(Icons.Default.Mail, contentDescription = "Localized description",
+                        modifier = Modifier.clickable(onClick = {
+                            coroutineScope.launch { state.drawerState.close() }
+                            coroutineScope.launch { state.snackbarHostState.showSnackbar("zzzzzip! The drawer closed.") }
+                        }))
                 }
             ) {
-                // Scaffold body
+                ScaffoldBody()
             }
         }
 
         @Composable
-        fun ScaffoldContent(callback:() -> Unit){
+        fun ScaffoldBody(){
             Column{
-                Text("content")
-                Text("Scaffold Example", fontSize = 76.sp)
-                Button(onClick = { callback()}) {
-
-                }
+                Text("In Compose, the UI is immutable—there's no way to update it after it's been " +
+                        "drawn. What you can control is the state of your UI. Every time the state of " +
+                        "the UI changes, Compose recreates the parts of the UI tree that have changed. " +
+                        "Composables can accept state and expose events—for example, a TextField accepts " +
+                        "a value and exposes a callback onValueChange that requests the callback " +
+                        "handler to change the value.\n\n" +
+                        "Because composables accept state and expose events, the unidirectional " +
+                        "data flow pattern fits well with Jetpack Compose. This guide focuses on how " +
+                        "to implement the unidirectional data flow pattern in Compose, how to implement " +
+                        "events and state holders, and how to work with ViewModels in Compose.\n\n" +
+                        "A unidirectional data flow (UDF) is a design pattern where state flows down " +
+                        "and events flow up. By following unidirectional data flow, you can decouple " +
+                        "composables that display state in the UI from the parts of your app that store " +
+                        "and change state.\n" +
+                        "\n" +
+                        "The UI update loop for an app using unidirectional data flow looks like this:\n" +
+                        "\n" +
+                        "Event: Part of the UI generates an event and passes it upward, such as a " +
+                        "button click passed to the ViewModel to handle; or an event is passed from " +
+                        "other layers of your app, such as indicating that the user session has expired.\n" +
+                        "Update state: An event handler might change the state.\n" +
+                        "Display state: The state holder passes down the state, and the UI displays it.")
             }
         }
 
