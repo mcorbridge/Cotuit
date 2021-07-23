@@ -21,7 +21,7 @@ class SlideShow {
 
             var menuClick by remember { mutableStateOf(0) }
             var slideState by remember { mutableStateOf(SlideState.SLIDE_0) }
-            var dataClass by remember { mutableStateOf(MyDataClass("foo","bar"))}
+            val dataClass by remember { mutableStateOf(MyDataClass("foo","bar"))}
 
             fun handleMenuClick(menuClick:Int){
                 when(menuClick){

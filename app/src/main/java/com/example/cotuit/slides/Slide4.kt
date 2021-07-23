@@ -55,7 +55,7 @@ class Slide4 {
                             "In an extension function or a function literal with receiver this denotes the receiver parameter that is passed on the left-hand side of a dot.\n" +
                             "\n" +
                             "If this has no qualifiers, it refers to the innermost enclosing scope. To refer to this in other scopes, label qualifiers are used:\n\n" +
-                            "To see this running, you need to review the debug ouput.  There is really nothing to show - it is all about the mechanisms of Kotlin.")
+                            "To see this running, you need to review the debug output.  There is really nothing to show - it is all about the mechanisms of Kotlin.")
 
                     Button(onClick = {
                         var a = A()
@@ -79,6 +79,9 @@ class A { // implicit label @A
     init{
         println("init A")
         doC()
+        var b = B()
+        var z = b.zoop()
+        println(z)
     }
 
 
@@ -91,15 +94,18 @@ class A { // implicit label @A
         c.bar
     }
 
-
-
-
     inner class B {
 
         init{
             println("init B")
         }
 
+        val zoop = {
+            var pooz = "pooz"
+            var opp = "oop"
+            var goop = "goop"
+            println("$pooz $opp $goop")
+        }
 
         var z = "z"
         // implicit label @B
@@ -124,7 +130,9 @@ class A { // implicit label @A
             }
 
             val zoop = {
-
+                var pooz = "pooz"
+                var opp = "oop"
+                var goop = "goop"
             }
         }
     }

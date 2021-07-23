@@ -298,7 +298,9 @@ fun Tween() {
     val offsetAnimation0: Dp by animateDpAsState(
         if (arrowPosition == ArrowPosition.INIT) 0.dp else 360.dp,
         tween(1000, easing = FastOutSlowInEasing)
-    )
+    ){
+        println("offsetAnimation0 $it")
+    }
 
     val offsetAnimation1: Dp by animateDpAsState(
         if (arrowPosition == ArrowPosition.INIT) 0.dp else 360.dp,
