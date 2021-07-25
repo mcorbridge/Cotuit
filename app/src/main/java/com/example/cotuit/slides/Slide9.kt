@@ -11,8 +11,11 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,24 +38,40 @@ class Slide9 {
                 slideTarget = (-400).dp
             }
 
-            // In preparation should a new slide be added to the slide deck
-            //if(slideState == SlideState.SLIDE_10){
-            //    slideTarget = 400.dp
-            //}
+            if(slideState == SlideState.SLIDE_10){
+                slideTarget = 400.dp
+            }
 
 
             val modifier0 = Modifier
-                .offset(x=50.dp, y=50.dp).background(color = Color(0xFFCDDC39)).border(width = 2.dp, color = Color.Blue).padding(6.dp)
+                .offset(x = 50.dp, y = 50.dp)
+                .background(color = Color(0xFFCDDC39))
+                .border(width = 2.dp, color = Color.Blue)
+                .padding(6.dp)
             val modifier1 = Modifier
-                .offset(x=25.dp, y=150.dp).background(color = Color(0xFFFFEB3B)).border(width = 4.dp, color = Color.Red).padding(8.dp)
+                .offset(x = 25.dp, y = 150.dp)
+                .background(color = Color(0xFFFFEB3B))
+                .border(width = 4.dp, color = Color.Red)
+                .padding(8.dp)
             val modifier2 = Modifier
-                .offset(x=50.dp, y=200.dp).background(color = Color(0xFFEB8565)).border(width = 6.dp, color = Color.Green).padding(10.dp)
+                .offset(x = 50.dp, y = 200.dp)
+                .background(color = Color(0xFFEB8565))
+                .border(width = 6.dp, color = Color.Green)
+                .padding(10.dp)
             val modifier3 = Modifier
-                .offset(x=25.dp, y=250.dp).background(color = Color(0xFFDA4F24)).border(width = 6.dp, color = Color.White).padding(15.dp)
+                .offset(x = 25.dp, y = 250.dp)
+                .background(color = Color(0xFFDA4F24))
+                .border(width = 6.dp, color = Color.White)
+                .padding(15.dp)
             val modifier4 = Modifier
-                .offset(x=50.dp, y=300.dp).background(color = Color(0xFF00BCD4)).border(width = 6.dp, color = Color.Black).padding(20.dp)
+                .offset(x = 50.dp, y = 300.dp)
+                .background(color = Color(0xFF00BCD4))
+                .border(width = 6.dp, color = Color.Black)
+                .padding(20.dp)
 
-            val modifier5 = modifier0.fillMaxSize()
+            val modifier5 = modifier0.fillMaxHeight(0.92f).fillMaxWidth(0.85f)
+
+            val modifier6 = modifier5.background(color = Color(0xFFDFE0D4))
 
 
             var whichModifier by remember { mutableStateOf(modifier0)}
@@ -81,6 +100,7 @@ class Slide9 {
                         3 -> whichModifier = modifier3
                         4 -> whichModifier = modifier4
                         5 -> whichModifier = modifier5
+                        6 -> whichModifier = modifier6
                         else -> {
                             ndx = 0
                             whichModifier = modifier0
@@ -88,11 +108,33 @@ class Slide9 {
                     }
                 }
 
-                if(ndx == 5){
-                    Text("YES THEY ARE!", fontSize = 28.sp, color = Color.White, fontWeight = FontWeight.ExtraBold,
-                        modifier = Modifier.offset(x=50.dp, y=450.dp))
+                var fontZize by remember {
+                    mutableStateOf(28)
                 }
 
+                if(ndx == 6){
+                    Box(modifier = Modifier.offset(x=75.dp, y=450.dp)){
+                        Column{
+                            Text("YES THEY ARE!",
+                                fontSize = fontZize.sp,
+                                color = Color.Black,
+                                fontFamily = FontFamily.Serif,
+                                fontWeight = FontWeight.ExtraBold,
+                                textDecoration = TextDecoration.Underline)
+                            Row{
+                                Button(onClick = {fontZize--}) {
+                                    Text("fontSize--")
+                                }
+                                Button(onClick = { fontZize++ }) {
+                                    Text("fontSize++")
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
 
             }
         }
@@ -107,5 +149,26 @@ class Slide9 {
                 }
             }
         }
+
+        @Composable
+        fun MyComposable(
+            modifier: Modifier = Modifier,
+            content: @Composable BoxScope.() -> Unit,
+        ) {
+            OtherComposable(
+                modifier = Modifier.fillMaxWidth().composed { modifier },
+                content = content,
+            )
+        }
+
+        @Composable
+        fun OtherComposable(modifier: Modifier = Modifier,
+                            content: @Composable BoxScope.() -> Unit){
+            Box{
+
+            }
+        }
+
+
     }
 }

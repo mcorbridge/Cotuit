@@ -1,5 +1,7 @@
 package com.example.cotuit.test
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +18,7 @@ class SlideShow {
 
     companion object{
 
+        @RequiresApi(Build.VERSION_CODES.R)
         @Composable
         fun DoSlideShow(navController: NavHostController) {
 
@@ -35,6 +38,7 @@ class SlideShow {
                     7 -> { slideState = SlideState.SLIDE_7 }
                     8 -> { slideState = SlideState.SLIDE_8 }
                     9 -> { slideState = SlideState.SLIDE_9 }
+                    10 -> { slideState = SlideState.SLIDE_10 }
                 }
             }
 
@@ -57,6 +61,7 @@ class SlideShow {
                         Slide7.Slide(slideState, dataClass)
                         Slide8.Slide(slideState, dataClass)
                         Slide9.Slide(slideState, dataClass)
+                        Slide10.Slide(slideState, dataClass)
                     }
                 }
 
@@ -71,7 +76,7 @@ class SlideShow {
 
                     Text("next >", modifier = Modifier.clickable {
                         menuClick++
-                        menuClick = if(menuClick > 9) 9 else menuClick // never allow clicks greater than total num slides-1
+                        menuClick = if(menuClick > 10) 10 else menuClick // never allow clicks greater than total num slides-1
                         handleMenuClick(menuClick)
                     })
                 }
@@ -83,7 +88,7 @@ class SlideShow {
 }
 
 enum class SlideState {
-    SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6, SLIDE_7, SLIDE_8, SLIDE_9,
+    SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6, SLIDE_7, SLIDE_8, SLIDE_9, SLIDE_10,
 }
 
 data class MyDataClass(var name:String, var value:String)

@@ -12,12 +12,14 @@ import androidx.compose.material.icons.filled.Mail
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cotuit.test.MyDataClass
 import com.example.cotuit.test.SlideState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class Slide7 {
@@ -64,19 +66,27 @@ class Slide7 {
                         elevation = 16.dp,
                     )
                 },
+                drawerBackgroundColor = Color.White,
+                drawerContentColor = contentColorFor(Color.Black),
+                drawerScrimColor = DrawerDefaults.scrimColor,
                 drawerShape = MaterialTheme.shapes.large,
-                drawerElevation = 16.dp,
+                drawerElevation = 5.dp,
                 drawerContent = {
-                    Text(text = "Drawer")
-                    Icon(Icons.Default.Mail, contentDescription = "Localized description",
-                        modifier = Modifier.clickable(onClick = {
-                            coroutineScope.launch { state.drawerState.close() }
-                            coroutineScope.launch { state.snackbarHostState.showSnackbar("zzzzzip! The drawer closed.") }
-                        }))
+                    DrawerBody(coroutineScope, state)
                 }
             ) {
                 ScaffoldBody()
             }
+        }
+
+        @Composable
+        fun DrawerBody(coroutineScope:CoroutineScope, state:ScaffoldState){
+            Text(text = "Drawer")
+            Icon(Icons.Default.Mail, contentDescription = "Localized description",
+                modifier = Modifier.clickable(onClick = {
+                    coroutineScope.launch { state.drawerState.close() }
+                    coroutineScope.launch { state.snackbarHostState.showSnackbar("zzzzzip! The drawer closed.") }
+                }))
         }
 
         @Composable
