@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -29,7 +30,9 @@ class Slide8 {
 
     companion object{
 
-        @RequiresApi(Build.VERSION_CODES.R)
+        private val rndTimes = listOf<Long>(1000, 5000, 100, 1500, 2700, 750, 258, 612, 1212, 430, 2000)
+        //private val rndTimes = listOf<Long>(10, 50, 10, 15, 27, 75, 25, 61, 12, 430, 20)
+
         @Composable
         fun Slide(
             slideState: SlideState,
@@ -38,13 +41,63 @@ class Slide8 {
 
             var slideTarget by remember { mutableStateOf((-400).dp) }
             var currentName by remember { mutableStateOf("tbd") }
-            var names = mutableListOf<String>()
+            var kounter by remember {mutableStateOf(0)}
+            var coroutineScope = rememberCoroutineScope()
+
+
+            val foo: (String) -> Unit = {
+                println("** i am foo ** $it")
+                currentName = it
+            }
+
+            var bar by remember {
+                mutableStateOf(foo)
+            }
+
 
             if(slideState == SlideState.SLIDE_7){
                 slideTarget = (-400).dp
             }
             if(slideState == SlideState.SLIDE_9){
                 slideTarget = 400.dp
+            }
+
+            val namesFlow = flow {
+                val names = RandNames.nameGetter()
+                for (name in names) {
+                    val rnd = rndTimes[(0..10).random()]
+                    delay(rnd)
+                    emit(name)
+                }
+            }
+
+            /**
+             * runBlocking is a low-level construct, to be used ONLY in framework code or self-contained
+             * examples. It turns an existing thread into an event loop and creates its
+             * coroutine with a Dispatcher that posts resuming coroutines to the event loop's queue.
+             * (whatever the fuck THAT means)
+             */
+
+            fun mainFlow() = runBlocking {
+                namesFlow.collect {
+                    kounter++
+                    currentName = it
+                    println("$kounter $it $currentName")
+                }
+            }
+
+            /**
+             * coroutineScope is a user-facing construct, used to delineate the boundaries of a task
+             * that is being parallel-decomposed inside it. You use it to conveniently await on all the
+             * async work happening inside it, get the final result, and handle all failures at one central place.
+             */
+
+            fun mainFlowZ() = coroutineScope.launch() {
+                namesFlow.collect {
+                    kounter++
+                    currentName = it
+                    println("$kounter $it $currentName")
+                }
             }
 
             val slideAnimation: Dp by animateDpAsState(
@@ -62,98 +115,50 @@ class Slide8 {
                     Text("Slide #8 - Kotlin Flow")
                     Text("${dataClass?.name} ${dataClass?.value}")
 
+                    //onClick is not composable. It's a regular function.!!!!
                     Button(onClick = {
-                        //processValues()
-                        //mainFlow2(names)
-                        mainFlowZ(names){
-                            println("currentName = $it")
-                            currentName = it
-                        }
+                        mainFlowZ()
                     }) {
                         Text("Go -> Flow")
                     }
 
-                    Button(onClick = {
-                        //processValues()
-                        names = RandNames.nameGetter()
-                        currentName = "Names -> Get"
-                    }) {
-                        Text("Names -> Get")
+                    Text("currentName = $currentName")
+
+                    Text("What about the onClick lambda?", fontWeight = FontWeight.ExtraBold)
+
+                     Text("Recompose scopes are only created around composable functions. Event " +
+                             "handlers, like Button's onClick, are not composable, they're just regular " +
+                             "functions. When the click handler is invoked by the framework, it is " +
+                             "done so outside of any recompose scope.")
+
+                    Text("explain runBlocking...", fontWeight = FontWeight.ExtraBold)
+
+                    Text("runBlocking is a low-level construct, to be used ONLY in framework code or self-contained " +
+                            "examples. It turns an existing thread into an event loop and creates its " +
+                            "coroutine with a Dispatcher that posts resuming coroutines to the event loop's queue. " +
+                            "(whatever the fuck THAT means)")
+
+                    Text("... versus coroutineScope", fontWeight = FontWeight.ExtraBold)
+
+                    Text("coroutineScope is a user-facing construct, used to delineate the boundaries of a task " +
+                            "that is being parallel-decomposed inside it. You use it to conveniently await on all the " +
+                            "async work happening inside it, get the final result, and handle all failures at one central place.")
+
+                    Column()
+                    {
+                        Text("kounter is: " + kounter)
+                        Button(onClick = { kounter++ }) {
+                            Text("kounter up")
+                        }
                     }
 
-                    Text("currentName = $currentName")
                 }
 
             }
+
+
         }
 
-
-
-//        suspend fun getValues(): List<Int> {
-//            delay(1000)
-//            return listOf(1, 2, 3)
-//        }
-
-        fun processValues() {
-            runBlocking {
-                val values = getValues()
-                for (value in values) {
-                    println(value)
-                }
-            }
-        }
-
-        suspend fun getValues(): Sequence<Int> = sequence {
-            Thread.sleep(250)
-            yield(1)
-            Thread.sleep(250)
-            yield(2)
-            Thread.sleep(250)
-            yield(3)
-        }
-
-        val namesFlow = flow {
-            val names = listOf("Jody", "Steve", "Lance", "Joe")
-            for (name in names) {
-                delay(1000)
-                emit(name)
-            }
-        }
-
-        val namesFlowToo = flowOf("Jody", "Steve", "Lance", "Joe")
-
-        fun mainFlow() = runBlocking {
-            namesFlow
-                .map { name -> name.length }
-                .filter { length -> length < 5 }
-                .collect { println(it) }
-
-            println("--------------- finished --------------")
-        }
-
-        fun mainFlow2(names:MutableList<String>) = runBlocking {
-            //val namesFloz = flowOf(names)
-            val namesFloz = flowOf("Jody", "Steve", "Lance", "Joe")
-
-            namesFloz
-                .map { name -> name.uppercase(Locale.getDefault()) }
-                .filter { name -> name.length < 15 }
-                .collect { println(it) }
-
-            println("--------------- finished --------------")
-        }
-
-        @RequiresApi(Build.VERSION_CODES.R)
-        fun mainFlowZ(names:MutableList<String>, callback:(String) -> Unit) = runBlocking<Unit> {
-            // Launch a concurrent coroutine to check if the main thread is blocked
-            launch {
-                names.forEach { name ->
-                    println("current name from list =  $name")
-                    callback(name)
-                    delay(1000)
-                }
-            }
-        }
 
 
 
