@@ -87,7 +87,7 @@ class Slide3 {
         fun doDelegation(klass:MyClass, newValue:Int){
             // Notification: 'oldName: Int' is deprecated.
             // Use 'newName' instead
-            klass.oldValue = newValue
+            var newName = newValue
         }
     }
 }

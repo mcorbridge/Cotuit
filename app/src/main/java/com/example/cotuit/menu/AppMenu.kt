@@ -46,7 +46,7 @@ class AppMenu(private val navController: NavHostController) {
 
             DisplayCard(CardDescription.CARD_NINE.title, CardDescription.CARD_NINE.description,  Routes.SLIDE_SHOW.route)
 
-            DisplayCard(CardDescription.CARD_TEN.title, CardDescription.CARD_TEN.description,  Routes.MENU.route)
+            DisplayCard(CardDescription.CARD_TEN.title, CardDescription.CARD_TEN.description,  Routes.FOOD_2_FORK.route)
 
         }
     }
@@ -125,8 +125,19 @@ enum class CardDescription(val title:String, val description: String) {
                 "geniuses at Google or Accompanist (same thing?) come up with one."),
 
     CARD_TEN(
-        "Example Ten",
-        "TODO"),
+        "Example Ten - Food2Fork",
+        "Kotlin\n" +
+                "MVVM\n" +
+                "Compose navigation (one activity, zero fragments)\n" +
+                "Retrieve Network Data from API (REST API)\n" +
+                "Database caching\n" +
+                "Monitoring Network Connectivity\n" +
+                "Use cases\n" +
+                "Datastore (New Shared Preferences)\n" +
+                "Unit Tests\n" +
+                "MockWebServer (Okhttp)\n" +
+                "Kotlin Flow\n" +
+                "Dependency management with Kotlin kts"),
 
 
 } // end class

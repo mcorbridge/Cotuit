@@ -17,7 +17,9 @@ class RandNames {
                 names.add(it.name)
             }
 
-            //println("names.size = ${names.size}")
+            names.shuffle()
+            names.reverse()
+
             return names
         }
 

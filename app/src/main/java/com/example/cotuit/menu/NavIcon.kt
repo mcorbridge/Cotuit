@@ -15,7 +15,7 @@ class NavIcon {
     companion object{
         @Composable
         fun MenuIcon(navController: NavHostController) {
-            Box(){
+            Box {
                 Icon(Icons.Rounded.Menu, contentDescription = "Localized description",modifier = Modifier.clickable {
                     navController.navigate(Routes.MENU.route)
                 })

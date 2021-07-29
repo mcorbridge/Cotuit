@@ -1,7 +1,10 @@
 package com.example.cotuit.menu
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.example.cotuit.food2Fork.FoodToFork
 import com.example.cotuit.test.*
 
 class NavRoutes {
@@ -71,9 +74,15 @@ class NavRoutes {
             TestTransitions.TestBoxWithConstraints(navController = navController)
         }
 
+        @RequiresApi(Build.VERSION_CODES.R)
         @Composable
         fun SlideShow(navController: NavHostController) {
             SlideShow.DoSlideShow(navController = navController)
+        }
+
+        @Composable
+        fun Food2Fork(navController: NavHostController) {
+            FoodToFork.DoFork(navController = navController)
         }
 
     }

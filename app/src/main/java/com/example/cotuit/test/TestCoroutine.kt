@@ -23,7 +23,7 @@ class TestCoroutine {
 
         var isTrue by remember { mutableStateOf(-1) }
 
-        DoTest(){
+        DoTest {
             isTrue = it // <- the ESSENCE of Compose! Each time 'isTrue' is modified (set) DoTestCoroutine() runs
         }
 

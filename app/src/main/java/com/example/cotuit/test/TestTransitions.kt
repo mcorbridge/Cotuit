@@ -275,7 +275,7 @@ class TestTransitions {
                         Text("height")
                     }
 
-                    SimpleRadioGroupTextItemComponent() {
+                    SimpleRadioGroupTextItemComponent {
                         println(it)
                         isIncrement = it == "Increment"
                     }

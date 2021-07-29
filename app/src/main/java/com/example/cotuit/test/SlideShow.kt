@@ -50,7 +50,7 @@ class SlideShow {
                     // allow navigation back to Main Menu
                     NavIcon.MenuIcon(navController = navController)
 
-                    BoxWithConstraints() {
+                    BoxWithConstraints {
                         Slide0.Slide(slideState)
                         Slide1.Slide(slideState)
                         Slide2.Slide(slideState)

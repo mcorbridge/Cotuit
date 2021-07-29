@@ -1,5 +1,7 @@
 package com.example.cotuit.menu
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,6 +16,7 @@ import androidx.navigation.compose.composable
 class AppNav {
 
     companion object{
+        @RequiresApi(Build.VERSION_CODES.R)
         @Composable
         fun NavigationInit(navController:NavHostController){
 
@@ -29,6 +32,9 @@ class AppNav {
                 composable(Routes.TRANSITIONS.route) { NavRoutes.Transitions(navController)}
                 composable(Routes.BOX_WITH_CONSTRAINTS.route) { NavRoutes.ConstrainedBox(navController)}
                 composable(Routes.SLIDE_SHOW.route) { NavRoutes.SlideShow(navController)}
+                composable(Routes.FOOD_2_FORK.route) {navBackStackEntry ->
+
+                    NavRoutes.Food2Fork(navController = navController)}
             }
         }
     }

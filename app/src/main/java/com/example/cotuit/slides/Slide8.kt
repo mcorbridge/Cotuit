@@ -1,8 +1,5 @@
 package com.example.cotuit.slides
 
-import android.icu.number.Notation.simple
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -14,36 +11,49 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.cotuit.test.MyDataClass
 import com.example.cotuit.test.SlideState
 import com.example.cotuit.util.RandNames
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.*
 
 class Slide8 {
 
     companion object{
 
-        private val rndTimes = listOf<Long>(1000, 5000, 100, 1500, 2700, 750, 258, 612, 1212, 430, 2000)
-        //private val rndTimes = listOf<Long>(10, 50, 10, 15, 27, 75, 25, 61, 12, 430, 20)
+        private val rndTimes = listOf<Long>(1000, 5000, 100, 1500, 2700, 750, 258, 612, 1212, 430, 2000, 1964, 10, 4200, 2400, 433)
+
+        private val rndColors = listOf(
+            Color(0xFF03A9F4),
+            Color(0xFFFF5722),
+            Color(0xFFE91E63),
+            Color(0xFFFFEB3B),
+            Color(0xFF009688),
+            Color(0xFF033FF4),
+            Color(0xFFA36171),
+            Color(0xFFC93304),
+            Color(0x3B03A9F4),
+            Color(0xFF849108),
+            Color(0x9EFCBE06),
+        )
 
         @Composable
         fun Slide(
             slideState: SlideState,
             dataClass: MyDataClass ?= null
         ){
-
             var slideTarget by remember { mutableStateOf((-400).dp) }
             var currentName by remember { mutableStateOf("tbd") }
             var kounter by remember {mutableStateOf(0)}
-            var coroutineScope = rememberCoroutineScope()
-
+            val coroutineScope = rememberCoroutineScope()
+            var emitTime by remember { mutableStateOf(0L)}
+            var newColor by remember { mutableStateOf(Color(0xFF849108))}
 
             val foo: (String) -> Unit = {
                 println("** i am foo ** $it")
@@ -54,7 +64,6 @@ class Slide8 {
                 mutableStateOf(foo)
             }
 
-
             if(slideState == SlideState.SLIDE_7){
                 slideTarget = (-400).dp
             }
@@ -62,12 +71,17 @@ class Slide8 {
                 slideTarget = 400.dp
             }
 
+            /**
+             * Simulates a service that is randomly emitting a string over between a period of 258ms .. 5000ms
+             */
             val namesFlow = flow {
                 val names = RandNames.nameGetter()
                 for (name in names) {
-                    val rnd = rndTimes[(0..10).random()]
+                    val rnd = rndTimes[(rndTimes.indices).random()]
+                    emitTime = rnd
                     delay(rnd)
                     emit(name)
+                    newColor = rndColors[(rndColors.indices).random()]
                 }
             }
 
@@ -82,7 +96,6 @@ class Slide8 {
                 namesFlow.collect {
                     kounter++
                     currentName = it
-                    println("$kounter $it $currentName")
                 }
             }
 
@@ -92,11 +105,10 @@ class Slide8 {
              * async work happening inside it, get the final result, and handle all failures at one central place.
              */
 
-            fun mainFlowZ() = coroutineScope.launch() {
+            fun mainFlowZ() = coroutineScope.launch {
                 namesFlow.collect {
                     kounter++
                     currentName = it
-                    println("$kounter $it $currentName")
                 }
             }
 
@@ -122,7 +134,14 @@ class Slide8 {
                         Text("Go -> Flow")
                     }
 
-                    Text("currentName = $currentName")
+                    Spacer(modifier=Modifier.height(16.dp))
+
+                    Text("name = $currentName\nemit wait = $emitTime ms",
+                        fontWeight = FontWeight.ExtraBold, color = newColor,
+                        fontSize = 32.sp,
+                        modifier = Modifier.background(color = Color.White).fillMaxWidth())
+
+                    Spacer(modifier=Modifier.height(16.dp))
 
                     Text("What about the onClick lambda?", fontWeight = FontWeight.ExtraBold)
 
@@ -146,7 +165,7 @@ class Slide8 {
 
                     Column()
                     {
-                        Text("kounter is: " + kounter)
+                        Text("kounter is: $kounter")
                         Button(onClick = { kounter++ }) {
                             Text("kounter up")
                         }

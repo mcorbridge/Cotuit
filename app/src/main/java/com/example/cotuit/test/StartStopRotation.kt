@@ -71,7 +71,7 @@ class StartStopRotation {
                     if (!isRotationStop) {
                         //tricky way to acquire the rotation value from the RotationValue [class]
                             // DoRotationValue [function]
-                        Inside() {
+                        Inside {
                             rotation = it + storedRotationA
                             if(rotation >= 360f){
                                 rotation %= 360f // mod 360 to ensure the value doesn't keep increasing

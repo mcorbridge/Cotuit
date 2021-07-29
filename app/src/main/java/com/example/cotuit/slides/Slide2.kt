@@ -66,7 +66,7 @@ class Slide2 {
             }
         }
 
-        private val user = User(){
+        private val user = User {
             println(it)
         }
 
