@@ -9,7 +9,7 @@ class TestFoo @Inject constructor(val testInject: TestInject){
 
     @Composable
     fun doSomething(){
-        testInject.TestNetwork()
+        //testInject.TestNetwork()
     }
 
 

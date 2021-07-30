@@ -47,16 +47,13 @@ class MainActivity : AppCompatActivity() {
                 Surface(color = MaterialTheme.colors.background) {
 
                     val navController = rememberNavController()
-                    val isNetworkAvailable = connectivityManager.isNetworkAvailable.value
 
-                    testInject.TestText(connectivityManager.isNetworkAvailable.value)
+                    var isNetworkAvailable = connectivityManager.isNetworkAvailable.value
 
-                    println(" ///////////////////// isNetworkAvailable? $isNetworkAvailable //////////////////////")
-
-                    testInject.TestNav(navController = navController)
+                    //testInject.ShowNetworkAvailability(isNetworkAvailable)
 
                     // opens/runs AppMenu.kt
-                    AppNav.NavigationInit(navController)
+                    AppNav.NavigationInit(navController, isNetworkAvailable)
 
                 }
             }
