@@ -36,14 +36,13 @@ class Slide10 {
 
             var slideTarget by remember { mutableStateOf((-400).dp) }
 
-            if(slideState == SlideState.SLIDE_8){
+            if(slideState == SlideState.SLIDE_9){
                 slideTarget = (-400).dp
             }
 
-            // In preparation should a new slide be added to the slide deck
-            // if(slideState == SlideState.SLIDE_11){
-            //     slideTarget = 400.dp
-            // }
+             if(slideState == SlideState.SLIDE_11){
+                 slideTarget = 400.dp
+             }
 
             val slideAnimation: Dp by animateDpAsState(
                 targetValue = if (slideState == SlideState.SLIDE_10) 0.dp else slideTarget,

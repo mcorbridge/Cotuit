@@ -32,9 +32,9 @@ class AppNav {
                 composable(Routes.TRANSITIONS.route) { NavRoutes.Transitions(navController)}
                 composable(Routes.BOX_WITH_CONSTRAINTS.route) { NavRoutes.ConstrainedBox(navController)}
                 composable(Routes.SLIDE_SHOW.route) { NavRoutes.SlideShow(navController)}
-                composable(Routes.FOOD_2_FORK.route) {navBackStackEntry ->
-
-                    NavRoutes.Food2Fork(navController = navController)}
+                composable(Routes.FOOD_2_FORK.route) {NavRoutes.Food2Fork(navController = navController)}
+                composable(Routes.FOO.route) {NavRoutes.TestFoo(navController = navController)}
+                composable(Routes.TEST_HILT.route) {NavRoutes.TestHiltX(navController = navController)}
             }
         }
     }

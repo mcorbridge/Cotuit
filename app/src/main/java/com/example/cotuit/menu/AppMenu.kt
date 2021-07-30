@@ -48,6 +48,10 @@ class AppMenu(private val navController: NavHostController) {
 
             DisplayCard(CardDescription.CARD_TEN.title, CardDescription.CARD_TEN.description,  Routes.FOOD_2_FORK.route)
 
+            DisplayCard(CardDescription.CARD_ELEVEN.title, CardDescription.CARD_ELEVEN.description,  Routes.FOO.route)
+
+           // DisplayCard(CardDescription.CARD_ELEVEN.title, CardDescription.CARD_ELEVEN.description,  Routes.TEST_HILT.route)
+
         }
     }
 
@@ -138,6 +142,10 @@ enum class CardDescription(val title:String, val description: String) {
                 "MockWebServer (Okhttp)\n" +
                 "Kotlin Flow\n" +
                 "Dependency management with Kotlin kts"),
+
+    CARD_ELEVEN(
+        "Example Eleven - Hilt",
+        "Testing Hilt"),
 
 
 } // end class

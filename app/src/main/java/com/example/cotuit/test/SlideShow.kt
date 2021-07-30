@@ -39,6 +39,7 @@ class SlideShow {
                     8 -> { slideState = SlideState.SLIDE_8 }
                     9 -> { slideState = SlideState.SLIDE_9 }
                     10 -> { slideState = SlideState.SLIDE_10 }
+                    11 -> { slideState = SlideState.SLIDE_11 }
                 }
             }
 
@@ -62,6 +63,7 @@ class SlideShow {
                         Slide8.Slide(slideState, dataClass)
                         Slide9.Slide(slideState, dataClass)
                         Slide10.Slide(slideState, dataClass)
+                        Slide11.Slide(slideState, dataClass)
                     }
                 }
 
@@ -76,7 +78,7 @@ class SlideShow {
 
                     Text("next >", modifier = Modifier.clickable {
                         menuClick++
-                        menuClick = if(menuClick > 10) 10 else menuClick // never allow clicks greater than total num slides-1
+                        menuClick = if(menuClick > 11) 11 else menuClick // never allow clicks greater than total num slides-1
                         handleMenuClick(menuClick)
                     })
                 }
@@ -88,7 +90,7 @@ class SlideShow {
 }
 
 enum class SlideState {
-    SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6, SLIDE_7, SLIDE_8, SLIDE_9, SLIDE_10,
+    SLIDE_0, SLIDE_1, SLIDE_2, SLIDE_3, SLIDE_4, SLIDE_5, SLIDE_6, SLIDE_7, SLIDE_8, SLIDE_9, SLIDE_10, SLIDE_11,
 }
 
 data class MyDataClass(var name:String, var value:String)

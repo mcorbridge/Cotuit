@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.navigation.compose.rememberNavController
+import com.example.cotuit.hilt.TestInject
 import com.example.cotuit.menu.AppNav
 import com.example.cotuit.ui.theme.CotuitTheme
-import com.example.cotuit.util.ConnectionLiveData
 import com.example.cotuit.util.ConnectivityManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var connectivityManager: ConnectivityManager
+
+    @Inject
+    lateinit var testInject: TestInject
 
     override fun onStart() {
         super.onStart()
@@ -46,7 +49,11 @@ class MainActivity : AppCompatActivity() {
                     val navController = rememberNavController()
                     val isNetworkAvailable = connectivityManager.isNetworkAvailable.value
 
+                    testInject.TestText(connectivityManager.isNetworkAvailable.value)
+
                     println(" ///////////////////// isNetworkAvailable? $isNetworkAvailable //////////////////////")
+
+                    testInject.TestNav(navController = navController)
 
                     // opens/runs AppMenu.kt
                     AppNav.NavigationInit(navController)

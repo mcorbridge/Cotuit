@@ -29,6 +29,8 @@ enum class Routes(val route:String, val access:String) {
     TRANSITIONS("transitions", "admin"),
     BOX_WITH_CONSTRAINTS("boxWithConstraints", "admin"),
     SLIDE_SHOW("slideShow", "admin"),
-    FOOD_2_FORK("food2fork", "admin")
+    FOOD_2_FORK("food2fork", "admin"),
+    TEST_HILT("testHilt", "admin"),
+    FOO("testFoo", "admin"),
 
 }
