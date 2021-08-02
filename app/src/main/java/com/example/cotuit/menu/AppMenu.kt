@@ -48,9 +48,7 @@ class AppMenu(private val navController: NavHostController) {
 
             DisplayCard(CardDescription.CARD_TEN.title, CardDescription.CARD_TEN.description,  Routes.FOOD_2_FORK.route)
 
-            DisplayCard(CardDescription.CARD_ELEVEN.title, CardDescription.CARD_ELEVEN.description,  Routes.FOO.route)
-
-           // DisplayCard(CardDescription.CARD_ELEVEN.title, CardDescription.CARD_ELEVEN.description,  Routes.TEST_HILT.route)
+            DisplayCard(CardDescription.CARD_ELEVEN.title, CardDescription.CARD_ELEVEN.description,  Routes.TEST_HILT.route)
 
         }
     }

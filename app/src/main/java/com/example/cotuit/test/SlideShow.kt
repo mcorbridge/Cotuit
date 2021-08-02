@@ -48,6 +48,7 @@ class SlideShow {
                 .background(Color(0xFF0778AC))) {
 
                 Column{
+
                     // allow navigation back to Main Menu
                     NavIcon.MenuIcon(navController = navController)
 

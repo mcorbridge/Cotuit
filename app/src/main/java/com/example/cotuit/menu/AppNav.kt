@@ -15,6 +15,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.compose.runtime.*
+import com.example.cotuit.hilt.Person
+import com.example.cotuit.hilt.UberPerson
 import com.example.cotuit.network.NetworkMonitor
 
 

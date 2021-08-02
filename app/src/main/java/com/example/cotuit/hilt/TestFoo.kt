@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class TestFoo @Inject constructor(val testInject: TestInject){
+
+class TestFoo  constructor(){
 
     @Composable
     fun doSomething(){

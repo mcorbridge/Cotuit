@@ -98,7 +98,8 @@ class NavRoutes {
 
         @Composable
         fun TestHiltX(navController: NavHostController) {
-            TestingHilt.DoTestHilt(navController = navController)
+            val testingHilt = TestingHilt()
+            testingHilt.DoTestHilt(navController = navController)
         }
 
     }
